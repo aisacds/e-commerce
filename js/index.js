@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
         window.location = "products.html"
+        
     });
     document.getElementById("juguetes").addEventListener("click", function() {
         localStorage.setItem("catID", 102);
@@ -12,3 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+
+if (!localStorage.getItem('email')) {
+    window.location.href = "login.html";
+}
