@@ -1,6 +1,7 @@
 
 const div = document.getElementById("container");
-const AUTOS_URL = "https://japceibal.github.io/emercado-api/cats_products/101.json"
+let catID = localStorage.getItem("catID");
+const Product = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`
 
 
 
@@ -49,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     let category = "";
     let name = "";
 
-    getJSONData(AUTOS_URL).then(function (resultObj) {
+    getJSONData(Product).then(function (resultObj) {
         if (resultObj.status === "ok") {
             category = resultObj.data.products;
             name = resultObj.data.catName;
