@@ -1,23 +1,23 @@
+const container = document.getElementById("container");
+const catID = localStorage.getItem("catID");
+const Product = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
+const h5 = document.getElementById("h5-title");
+const descprice = "b-a";
+const ascprice = "a-b";
+const relevant = "relevant";
+let minCount = undefined;
+let maxCount = undefined;
 
-const div = document.getElementById("container");
-let catID = localStorage.getItem("catID");
-const Product = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`
-
-
-
-const showCategory = (array, name) => {
-    let addContent = "";
+function insertName(name) {
     let addContentHeader = "";
 
-    addContentHeader = `
-    <div class="mt-4 mb-4 d-flex row text-center" >
-    <h1>Productos</h1>
-    <h5>Veras aquí todos los productos de la categoría` + " " + name + `</h5>
-    
-    </div>
-    `
+    addContentHeader += ` ` + `${name}`;
 
-    div.innerHTML += addContentHeader;
+    h5.innerHTML += addContentHeader;
+}
+
+const showCategory = (array) => {
+    let addContent = "";
 
     for (let i = 0; i < array.length; i++) {
         let product = array[i];
@@ -40,10 +40,8 @@ const showCategory = (array, name) => {
         </div>
     </div>
         `
-        div.innerHTML += addContent;
-
+        container.innerHTML += addContent;
     }
-
 }
 
 document.addEventListener("DOMContentLoaded", function (e) {
@@ -54,11 +52,86 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (resultObj.status === "ok") {
             category = resultObj.data.products;
             name = resultObj.data.catName;
-            showCategory(category, name);
-
+            showCategory(category);
+            insertName(name);
         }
     });
 });
+
+const sortProduct = (method, array) => {
+    let result = [];
+    if (method === ascprice) {
+        result = array.sort(function (a, b) { return a.cost - b.cost });
+    } else if (method === descprice) {
+        result = array.sort(function (a, b) { return b.cost - a.cost });
+    } else if (method === relevant) {
+        result = array.sort(function (a, b) { return b.soldCount - a.soldCount });
+    }
+    return result;
+}
+
+const sortPetition = (method) => {
+    getJSONData(Product).then(function (obj) {
+        products = obj.data.products;
+        sortProduct(method, products);
+        showCategory(products);
+    })
+}
+
+const selection = () => {
+    const select = document.getElementById("filters");
+    container.innerHTML = "";
+    if (select.value == "menor") {
+        sortPetition(ascprice);
+    } else if (select.value == "mayor") {
+        sortPetition(descprice);
+    } else if (select.value == "relevante") {
+        sortPetition(relevant);
+    }
+}
+
+document.getElementById("btnFilter").addEventListener("click", () => {
+    const inputMin = document.getElementById("input-min").value;
+    const inputMax = document.getElementById("input-max").value;
+
+    if ((inputMin != undefined) && (inputMin != "") && (parseInt(inputMin)) >= 0) {
+        minCount = parseInt(inputMin);
+    }
+    else {
+        minCount = undefined;
+    }
+
+    if ((inputMax != undefined) && (inputMax != "") && (parseInt(inputMax)) >= 0) {
+        maxCount = parseInt(inputMax);
+    }
+    else {
+        maxCount = undefined;
+    }
+    getJSONData(Product).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            category = resultObj.data.products;
+            if (maxCount !== undefined && maxCount !== undefined) {
+                let array = category.filter(item => item.cost < maxCount && item.cost > minCount);
+                container.innerHTML = "";
+                showCategory(array);
+            }
+        }
+    })
+})
+
+document.getElementById("btnClearFilter").addEventListener("click", function () {
+    inputMin = document.getElementById("input-min").value = "";
+    inputMax = document.getElementById("input-max").value = "";
+    maxCount = undefined;
+    minCount = undefined;
+    container.innerHTML = "";
+    getJSONData(Product).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            category = resultObj.data.products;
+            showCategory(category);
+        }
+    })
+})
 
 
 

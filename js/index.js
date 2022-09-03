@@ -21,6 +21,4 @@ if (!localStorage.getItem('email')) {
 let textEmail = localStorage.getItem("email");
 const divEmail = document.getElementById("divEmail");
 
-console.log(textEmail)
-
 divEmail.innerHTML += textEmail;

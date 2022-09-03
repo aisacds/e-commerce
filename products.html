@@ -5,7 +5,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
-
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -36,11 +35,27 @@
       </div>
     </div>
   </nav>
-  <main class="pb-5 container">
-    <div id="container">
-      <!-- <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div> -->
+  <main class="container">
+    <div class="text-center p-4">
+      <h1>Productos</h1>
+      <h5 id="h5-title">Veras aquí todos los productos de la categoría</h5>
+    </div>
+    <div class="cont-filters text-end" >
+      <span>Precio:</span>
+      <input type="number" placeholder="Mínimo" class="input-number" id="input-min"> -
+      <input type="number" placeholder="Máximo" class="input-number" id="input-max">
+      <button class="btn btn-light btn-block" id="btnFilter">Filtrar</button>
+      <button class="" id="btnClearFilter">Limpiar</button>
+      <span>Ordenar por</span>
+      <select id="filters" onchange="selection()">
+        <option value="" selected disabled>Seleccionar</option>
+        <option value="menor">Menor precio</option>
+        <option value="mayor">Mayor precio</option>
+        <option value="relevante">Mas relevante</option>
+      </select>
+    </div>
+    <div id="container" class="mt-3">
+
     </div>
   </main>
   <footer class="text-muted">
