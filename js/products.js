@@ -7,6 +7,10 @@ const ascprice = "a-b";
 const relevant = "relevant";
 let minCount = undefined;
 let maxCount = undefined;
+let textEmail = localStorage.getItem("email");
+const divEmail = document.getElementById("divEmail");
+
+divEmail.innerHTML += textEmail;
 
 function insertName(name) {
     let addContentHeader = "";
@@ -16,13 +20,18 @@ function insertName(name) {
     h5.innerHTML += addContentHeader;
 }
 
+function setProductID(id) {
+    localStorage.setItem("productID", id);
+    window.location = "product-info.html";
+}
+
 const showCategory = (array) => {
     let addContent = "";
 
     for (let i = 0; i < array.length; i++) {
         let product = array[i];
         addContent = `
-        <div class="list-group-item list-group-item-action">
+        <div class="list-group-item list-group-item-action" onclick="setProductID(`+ product.id + `)">
         <div class="row">
             <div class="col-3">
                 <img src="` + product.image + `" alt="product image" class="img-thumbnail">
@@ -133,8 +142,15 @@ document.getElementById("btnClearFilter").addEventListener("click", function () 
     })
 })
 
+document.getElementById("input-search").addEventListener("input", (e) => {
+    container.innerHTML = "";
+    getJSONData(Product).then((obj) => {
+        if (obj.status === "ok") {
+            let products = obj.data.products;
 
-
-
-
-
+            let inputValue = e.target.value.toLowerCase();
+            let result = products.filter(item => item.name.toLowerCase().indexOf(inputValue) === 0)
+            showCategory(result);
+        }
+    })
+})

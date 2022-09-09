@@ -214,3 +214,12 @@ div.log-cont {
   margin-top: 100px;
   margin-bottom: 50px;
 }
+
+.p-comment {
+  margin-bottom: 0;
+}
+
+#container-comments {
+  max-width: 80%;
+  margin: 0 auto;
+}

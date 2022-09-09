@@ -5,6 +5,10 @@ let currentCategoriesArray = [];
 let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
+let textEmail = localStorage.getItem("email");
+const divEmail = document.getElementById("divEmail");
+
+divEmail.innerHTML += textEmail;
 
 function sortCategories(criteria, array){
     let result = [];
