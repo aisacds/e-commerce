@@ -147,10 +147,16 @@ document.getElementById("input-search").addEventListener("input", (e) => {
     getJSONData(Product).then((obj) => {
         if (obj.status === "ok") {
             let products = obj.data.products;
-
             let inputValue = e.target.value.toLowerCase();
-            let result = products.filter(item => item.name.toLowerCase().indexOf(inputValue) === 0)
-            showCategory(result);
+            let result = products.filter(item => item.name.toLowerCase().indexOf(inputValue) === 0);
+            let result2 = products.filter(item => item.description.toLowerCase().indexOf(inputValue) === 0);
+            if (result) {
+                showCategory(result);
+            }
+
+            if (result2) {
+                showCategory(result2);
+            } 
         }
     })
 })
