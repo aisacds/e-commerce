@@ -42,13 +42,15 @@
       <h1>Productos</h1>
       <h5 id="h5-title">Veras aquí todos los productos de la categoría</h5>
     </div>
+    <input class="float-start"type="search" id="input-search" placeholder="Buscar">
     <div class="cont-filters text-end" >
-      <input type="search" id="input-search" placeholder="Buscar">
+      
       <span>Precio:</span>
-      <input type="number" placeholder="Mínimo" class="input-number" id="input-min"> -
-      <input type="number" placeholder="Máximo" class="input-number" id="input-max">
+      <input type="number" placeholder="Mínimo" class="input-number-filt" id="input-min"> -
+      <input type="number" placeholder="Máximo" class="input-number-filt" id="input-max">
       <button class="btn btn-light btn-block" id="btnFilter">Filtrar</button>
       <button class="" id="btnClearFilter">Limpiar</button>
+
       <span>Ordenar por</span>
       <select id="filters" onchange="selection()">
         <option value="" selected disabled>Seleccionar</option>

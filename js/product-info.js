@@ -10,9 +10,9 @@ const contComments = document.getElementById("container-comments");
 const showCategory = (array) => {
     let addContent = "";
     let addImg = "";
-    
 
-        addContent = `
+
+    addContent = `
         <div class="m-3">
             <h1>`+ array.name + `</h1>
             <hr>
@@ -20,44 +20,44 @@ const showCategory = (array) => {
                 <h5>Precio</h5>
                 <p>`+ array.currency + " " + array.cost + `<p>
                 <h5>Descripción</h5>
-                <p>`+ array.description +`</p>
+                <p>`+ array.description + `</p>
                 <h5>Categoria</h5>
-                <p>`+ catName +`</p>
+                <p>`+ catName + `</p>
                 <h5>Cantidad de vendidos</h5>
-                <p>`+ array.soldCount +`</p>
+                <p>`+ array.soldCount + `</p>
                 <h5>Imágenes ilustrativas</h5>
 
             </div>
         </div>
         `
-        container.innerHTML += addContent;
+    container.innerHTML += addContent;
 
-        for(let item of array.images) {
-            console.log(typeof item)
-            addImg = `
+    for (let item of array.images) {
+        console.log(typeof item)
+        addImg = `
             
-                <img class="col-2 m-3" src="`+ item +`"/>
+                <img class="col-2 m-3" src="`+ item + `"/>
             
             `
-            contImg.innerHTML += addImg;  
-        }
-       
-      
+        contImg.innerHTML += addImg;
+    }
+
+
 }
 
-const addComments = (array)=> {
+const addComments = (array) => {
     let comments = "";
 
-    for(let item of array) {
-    comments = `
+    for (let item of array) {
+        comments = `
     <div class="d-flex row p-2 border">
-        <p class="p-comment"><b>`+ item.user +`</b>`+  " - " + item.dateTime +` </p>
-        <p class="p-comment">`+ item.description +`</p>
+        <p class="p-comment"><b>`+ item.user + `</b>` + " - " + item.dateTime + ` </p>
+        <p class="p-comment">`+ item.description + `</p>
     </div>
     `
-    contComments.innerHTML += comments;
-}
-    
+        contComments.innerHTML += comments;
+    }
+
 }
 
 
