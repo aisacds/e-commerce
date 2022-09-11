@@ -26,3 +26,10 @@ function onSignIn(googleUser) {
       console.log('User signed out.');
     });
   }
+
+  window.gapi.client
+        .init({
+          clientId:'261059380792-sngr9a7v5mvr0du6ef8a3acnqmfnh796.apps.googleusercontent.com',
+          scope: "email",
+          plugin_name:'JapLogin'
+        })
