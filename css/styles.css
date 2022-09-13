@@ -219,11 +219,22 @@ div.log-cont {
   margin-bottom: 0;
 }
 
-#container-comments {
+#container-cont-comments {
   max-width: 80%;
   margin: 0 auto;
 }
 
 .input-number-filt {
   width: 100px;
+}
+div.comments {
+  display: flex;
+  flex-direction: column;
+}
+
+#btncomment {
+  border: none;
+  color: white;
+  width: 60px;
+  background-color: #0087F7;
 }
