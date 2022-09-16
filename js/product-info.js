@@ -53,35 +53,35 @@ const starsAdd = (score, element) => {
     let comment = document.getElementById(element);
     switch (score) {
         case 1: comment.innerHTML += `
-         <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
         <span class="fa fa-star"></span>
         <span class="fa fa-star"></span>
         <span class="fa fa-star"></span>
         <span class="fa fa-star"></span>
         `; break;
         case 2: comment.innerHTML += `
-         <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star"></span>
         <span class="fa fa-star"></span>
         <span class="fa fa-star"></span>
         `; break;
         case 3: comment.innerHTML += `
-         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
         <span class="fa fa-star"></span>
         <span class="fa fa-star"></span>
         `; break;
         case 4: comment.innerHTML += `
-         <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star"></span>
         `; break;
         case 5: comment.innerHTML += `
-         <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
@@ -125,23 +125,25 @@ const addComment = (time, user, description, rating) => {
     starsAdd(rating, user);
 }
 
-const ratSelection = () => {
-    const select = parseInt(document.getElementById("selectcomment").value);
-    let textarea = document.getElementById("textarea-comment").value;
-    let date = new Date();
-    let today = date.getFullYear() + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + String(date.getDate()).padStart(2, '0');
-    let time = date.toLocaleTimeString();
-    let array = JSON.parse(localStorage.getItem("comments")).reverse();
-    let arr = {
-        product: array[0].product, 
-        score: select, 
-        description: textarea, 
-        user: textEmail, 
-        dateTime: today + " " + time
-    }
+
+   
     document.getElementById("btncomment").addEventListener("click", function () {
+        const select = parseInt(document.getElementById("selectcomment").value);
+        let textarea = document.getElementById("textarea-comment").value;
+        let date = new Date();
+        let today = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        let time = date.toLocaleTimeString();
+        let array = JSON.parse(localStorage.getItem("comments")).reverse();
+        let arr = {
+            product: array[0].product, 
+            score: select, 
+            description: textarea, 
+            user: textEmail, 
+            dateTime: today + " " + time
+        }
         array.push(arr);
         contComments.innerHTML = "";
         addComments(array.reverse());
     })
-}
+
+

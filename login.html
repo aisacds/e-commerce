@@ -36,6 +36,7 @@
           <button id="btnlogin">Ingresar</button>
          </form>
         </div>
+        <button id="google">Ingresar con Google</button>
       </div>
     </div>
   </main>
@@ -50,6 +51,55 @@
     </div>
   </footer>
   <script src="js/login.js"></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+    import { getAuth ,GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyC9FqtLkzyMPcoW8rK78uXjyp4faHvESVE",
+      authDomain: "japlogin-362200.firebaseapp.com",
+      projectId: "japlogin-362200",
+      storageBucket: "japlogin-362200.appspot.com",
+      messagingSenderId: "261059380792",
+      appId: "1:261059380792:web:a199e7ae59502a425088cd"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider(app);
+
+    google.addEventListener("click", function (e) {
+  
+signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+
+    localStorage.setItem("email", user.email);
+    window.location.href = "index.html";
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+
+    });
+
+  </script>
 </body>
 
 </html>

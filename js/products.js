@@ -1,7 +1,7 @@
 const container = document.getElementById("container");
 const catID = localStorage.getItem("catID");
 const Product = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
-const h5 = document.getElementById("h5-title");
+const title = document.getElementById("h5-title");
 const descprice = "b-a";
 const ascprice = "a-b";
 const relevant = "relevant";
@@ -17,7 +17,7 @@ function insertName(name) {
 
     addContentHeader += ` ` + `${name}`;
 
-    h5.innerHTML += addContentHeader;
+    title.innerHTML += addContentHeader;
 }
 
 function setProductID(id) {
