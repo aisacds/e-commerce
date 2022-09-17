@@ -219,8 +219,8 @@ div.log-cont {
   margin-bottom: 0;
 }
 
-#container-cont-comments {
-  max-width: 80%;
+#main-product-info {
+  max-width: 90%;
   margin: 0 auto;
 }
 
@@ -230,6 +230,15 @@ div.log-cont {
 div.comments {
   display: flex;
   flex-direction: column;
+  margin-left: 2rem;
+}
+
+div.content-info {
+  margin: 1rem;
+}
+
+#addcomment {
+  padding-left: 2rem;
 }
 
 #btncomment {

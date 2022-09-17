@@ -17,12 +17,12 @@ getJSONData(productComments).then(function (obj) {
     }
 })
 
-const showCategory = (array) => {
+const showProduct = (array) => {
     let addContent = "";
     let addImg = "";
 
     addContent = `
-        <div class="m-3">
+        <div class="content-info">
             <h1>`+ array.name + `</h1>
             <hr>
             <div class="m-4">
@@ -107,8 +107,8 @@ const addComments = (array) => {
 
 getJSONData(Product).then(function (resultObj) {
     if (resultObj.status === "ok") {
-        category = resultObj.data;
-        showCategory(category);
+        array = resultObj.data;
+        showProduct(array);
     }
 });
 
@@ -126,24 +126,24 @@ const addComment = (time, user, description, rating) => {
 }
 
 
-   
-    document.getElementById("btncomment").addEventListener("click", function () {
-        const select = parseInt(document.getElementById("selectcomment").value);
-        let textarea = document.getElementById("textarea-comment").value;
-        let date = new Date();
-        let today = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
-        let time = date.toLocaleTimeString();
-        let array = JSON.parse(localStorage.getItem("comments")).reverse();
-        let arr = {
-            product: array[0].product, 
-            score: select, 
-            description: textarea, 
-            user: textEmail, 
-            dateTime: today + " " + time
-        }
-        array.push(arr);
-        contComments.innerHTML = "";
-        addComments(array.reverse());
-    })
+
+document.getElementById("btncomment").addEventListener("click", function () {
+    const select = parseInt(document.getElementById("selectcomment").value);
+    let textarea = document.getElementById("textarea-comment").value;
+    let date = new Date();
+    let today = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+    let time = date.toLocaleTimeString();
+    let array = JSON.parse(localStorage.getItem("comments")).reverse();
+    let arr = {
+        product: array[0].product,
+        score: select,
+        description: textarea,
+        user: textEmail,
+        dateTime: today + " " + time
+    }
+    array.push(arr);
+    contComments.innerHTML = "";
+    addComments(array.reverse());
+})
 
 

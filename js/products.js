@@ -148,7 +148,9 @@ document.getElementById("input-search").addEventListener("input", (e) => {
         if (obj.status === "ok") {
             let products = obj.data.products;
             let inputValue = e.target.value.toLowerCase();
+            //buscar por nombre
             let result = products.filter(item => item.name.toLowerCase().indexOf(inputValue) === 0);
+            //buscar por descripcion
             let result2 = products.filter(item => item.description.toLowerCase().indexOf(inputValue) === 0);
             if (result) {
                 showCategory(result);
