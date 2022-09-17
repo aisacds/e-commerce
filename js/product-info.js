@@ -49,6 +49,13 @@ const showProduct = (array) => {
     }
 }
 
+getJSONData(Product).then(function (resultObj) {
+    if (resultObj.status === "ok") {
+        array = resultObj.data;
+        showProduct(array);
+    }
+});
+
 const starsAdd = (score, element) => {
     let comment = document.getElementById(element);
     switch (score) {
@@ -105,12 +112,7 @@ const addComments = (array) => {
     }
 }
 
-getJSONData(Product).then(function (resultObj) {
-    if (resultObj.status === "ok") {
-        array = resultObj.data;
-        showProduct(array);
-    }
-});
+
 
 const addComment = (time, user, description, rating) => {
     let comment = "";
@@ -128,12 +130,15 @@ const addComment = (time, user, description, rating) => {
 
 
 document.getElementById("btncomment").addEventListener("click", function () {
+    // guardo valores
     const select = parseInt(document.getElementById("selectcomment").value);
     let textarea = document.getElementById("textarea-comment").value;
     let date = new Date();
     let today = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
     let time = date.toLocaleTimeString();
+    // obtengo los comentarios ya añadidos y guardados en localstorage
     let array = JSON.parse(localStorage.getItem("comments")).reverse();
+    // creo objeto para añadir a los comentarios
     let arr = {
         product: array[0].product,
         score: select,
@@ -141,6 +146,7 @@ document.getElementById("btncomment").addEventListener("click", function () {
         user: textEmail,
         dateTime: today + " " + time
     }
+    // a los comentarios le agrego el comentario nuevo (objeto)
     array.push(arr);
     contComments.innerHTML = "";
     addComments(array.reverse());

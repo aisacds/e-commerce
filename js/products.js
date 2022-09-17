@@ -143,15 +143,18 @@ document.getElementById("btnClearFilter").addEventListener("click", function () 
 })
 
 document.getElementById("input-search").addEventListener("input", (e) => {
+    // reinicio el contenido de div
     container.innerHTML = "";
+    // obtengo los productos a filtrar
     getJSONData(Product).then((obj) => {
         if (obj.status === "ok") {
             let products = obj.data.products;
             let inputValue = e.target.value.toLowerCase();
-            //buscar por nombre
+            // filtro mediante nombre
             let result = products.filter(item => item.name.toLowerCase().indexOf(inputValue) === 0);
-            //buscar por descripcion
+            // filtro por descripcion
             let result2 = products.filter(item => item.description.toLowerCase().indexOf(inputValue) === 0);
+            // si se cumpple uno de ambos, añado ya el objeto filtrado
             if (result) {
                 showCategory(result);
             }
