@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             name = resultObj.data.catName;
             showCategory(category);
             insertName(name);
+            localStorage.setItem("Products", JSON.stringify(category));
         }
     });
 });

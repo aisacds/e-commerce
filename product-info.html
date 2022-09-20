@@ -51,26 +51,53 @@
       <h2 class="">Comentarios</h2>
       <div id="container-comments">
       </div>
-      
-    
-    <br>
-    <h3>Comentar</h3>
-    <div id="addcomment">
-      
-      <p>Tu opinion:</p>
-      <textarea name="" id="textarea-comment" cols="50" required></textarea>
-      <p>Tu puntuación:</p>
-      <select name="" id="selectcomment" onchange="" required>
-        
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <button id="btncomment">Enter</button>
     </div>
-  </div>
+
+      <br>
+      
+      <div id="addcomment-rel" class="d-flex">
+        
+        <div id="addcomment">
+          <h3>Comentar</h3>
+          <p>Tu opinion:</p>
+          <textarea name="" id="textarea-comment" cols="50" required></textarea>
+          <p>Tu puntuación:</p>
+          <select name="" id="selectcomment" onchange="" required>
+
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button id="btncomment">Enter</button>
+        </div>
+        <div id="rel-products">
+          <h4 class="">Productos relacionados...</h4>
+          <div id="carouselExampleCaptions" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            </div>
+            <div class="carousel-inner">
+              </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    
   </main>
   <footer class="text-muted">
     <div class="container">

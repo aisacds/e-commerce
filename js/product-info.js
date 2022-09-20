@@ -1,10 +1,12 @@
 const productID = localStorage.getItem("productID");
+const productsList = JSON.parse(localStorage.getItem("Products"));
 const catID = localStorage.getItem("catID");
 const Product = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
 const container = document.getElementById("container");
 const productComments = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`
 const contImg = document.getElementById("container-img");
 const contComments = document.getElementById("container-comments");
+const contRelProducts = document.getElementById("rel-products");
 let textEmail = localStorage.getItem("email");
 const divEmail = document.getElementById("divEmail");
 divEmail.innerHTML += textEmail;
@@ -152,4 +154,67 @@ document.getElementById("btncomment").addEventListener("click", function () {
     addComments(array.reverse());
 })
 
+console.log(productsList);
 
+const carousel = document.querySelector(".carousel-inner");
+const carouselInd = document.querySelector(".carousel-indicators");
+
+document.addEventListener("DOMContentLoaded", function() {
+
+const addBtnRel = (array)=> {
+    let addBtn = "";
+
+    for(let i = 1; i < array.length; i++) {
+        addBtn = `
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="`+ [i] +`"
+                    aria-label="Slide `+ [i] +`"></button>
+        
+        `
+        carouselInd.innerHTML += addBtn;
+
+    }
+}
+addBtnRel(productsList);
+
+const addRelProducts = (array)=> {
+
+    
+
+    
+    
+
+    let addProductActive ="";
+
+    addProductActive = `
+    
+    <div class="carousel-item active">
+      <img src="`+ array[0].image +`" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>`+ array[0].name +`</p>
+      </div>
+    </div>
+    
+    `
+    carousel.innerHTML += addProductActive;
+
+
+    let addProducts = "";
+    for(let i = 1; i < array.length; i++) {
+    addProducts = `
+    <div class="carousel-item">
+                <img src="` + array[i].image + `"
+                  class="d-block w-100" alt="">
+                <div class="carousel-caption d-none d-md-block">
+                  <p>`+ array[i].name +`</p>
+                </div>
+              </div>
+
+    
+    `
+carousel.innerHTML += addProducts;
+    }
+}
+
+addRelProducts(productsList);
+
+})

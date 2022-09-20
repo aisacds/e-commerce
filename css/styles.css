@@ -247,3 +247,12 @@ div.content-info {
   width: 60px;
   background-color: #0087F7;
 }
+
+#rel-products {
+  margin-left: 200px;
+  width: 400px;
+}
+
+#rel-products button {
+  color: black;
+}
