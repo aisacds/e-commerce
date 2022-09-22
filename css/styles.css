@@ -249,10 +249,10 @@ div.content-info {
 }
 
 #rel-products {
+  padding: 20px;
+  background-color: rgb(192, 192, 192);
   margin-left: 200px;
   width: 400px;
 }
 
-#rel-products button {
-  color: black;
-}
+

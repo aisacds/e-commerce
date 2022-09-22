@@ -1,5 +1,5 @@
 const productID = localStorage.getItem("productID");
-const productsList = JSON.parse(localStorage.getItem("Products"));
+const productsList = JSON.parse(localStorage.getItem("Products")).filter(item => item.id != productID);
 const catID = localStorage.getItem("catID");
 const Product = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
 const container = document.getElementById("container");
@@ -156,65 +156,59 @@ document.getElementById("btncomment").addEventListener("click", function () {
 
 console.log(productsList);
 
+function changeProductID(id) {
+    localStorage.setItem("productID", id);
+    window.location = "product-info.html";
+}
+
 const carousel = document.querySelector(".carousel-inner");
 const carouselInd = document.querySelector(".carousel-indicators");
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
-const addBtnRel = (array)=> {
-    let addBtn = "";
+    const addBtnRel = (array) => {
+        let addBtn = "";
 
-    for(let i = 1; i < array.length; i++) {
-        addBtn = `
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="`+ [i] +`"
-                    aria-label="Slide `+ [i] +`"></button>
-        
-        `
-        carouselInd.innerHTML += addBtn;
+        for (let i = 1; i < array.length; i++) {
+            addBtn = `
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="`+ [i] + `"
+                    aria-label="Slide `+ [i] + `"></button>`
+            carouselInd.innerHTML += addBtn;
 
+        }
     }
-}
-addBtnRel(productsList);
+    addBtnRel(productsList);
 
-const addRelProducts = (array)=> {
+    const addRelProducts = (array) => {
+        let addProductActive = "";
 
-    
-
-    
-    
-
-    let addProductActive ="";
-
-    addProductActive = `
-    
+        addProductActive = `
     <div class="carousel-item active">
-      <img src="`+ array[0].image +`" class="d-block w-100" alt="...">
+    <a onclick="changeProductID(`+ array[0].id +`)" href="product-info.html">
+      <img src="`+ array[0].image + `" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <p>`+ array[0].name +`</p>
+        <p>`+ array[0].name + `</p>
       </div>
     </div>
-    
-    `
-    carousel.innerHTML += addProductActive;
+    </a>`
+        carousel.innerHTML += addProductActive;
 
-
-    let addProducts = "";
-    for(let i = 1; i < array.length; i++) {
-    addProducts = `
+        let addProducts = "";
+        for (let i = 1; i < array.length; i++) {
+            addProducts = `
     <div class="carousel-item">
+            <a onclick="changeProductID(`+ array[i].id +`)" href="product-info.html">
                 <img src="` + array[i].image + `"
                   class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
-                  <p>`+ array[i].name +`</p>
+                  <p>`+ array[i].name + `</p>
                 </div>
+                </a>
               </div>
-
-    
-    `
-carousel.innerHTML += addProducts;
+            
+            `
+            carousel.innerHTML += addProducts;
+        }
     }
-}
-
-addRelProducts(productsList);
-
+    addRelProducts(productsList);
 })

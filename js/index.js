@@ -19,6 +19,6 @@ if (!localStorage.getItem('email')) {
 }
 
 let textEmail = localStorage.getItem("email");
-const divEmail = document.getElementById("divEmail");
+const contEmail = document.getElementById("dropdownMenuButton");
 
-divEmail.innerHTML += textEmail;
+contEmail.innerHTML += textEmail;
