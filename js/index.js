@@ -19,6 +19,23 @@ if (!localStorage.getItem('email')) {
 }
 
 let textEmail = localStorage.getItem("email");
-const contEmail = document.getElementById("dropdownMenuButton");
+const btnEmail = document.getElementById("dropdownMenuButton");
+const dropMenu = document.getElementById("dropmenu");
 
-contEmail.innerHTML += textEmail;
+btnEmail.innerHTML += textEmail;
+
+const menu = ()=> {
+    let value = btnEmail.getAttribute("aria-expanded");
+    if(value == "true") {
+        btnEmail.setAttribute("aria-expanded", "false");
+        dropMenu.setAttribute("hidden", "")
+    }
+    if (value == "false") {
+        btnEmail.setAttribute("aria-expanded", "true");
+        dropMenu.removeAttribute("hidden")
+    }
+}
+
+const removeLS = ()=> {
+    localStorage.clear();
+}
