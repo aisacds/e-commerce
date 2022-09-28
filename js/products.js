@@ -1,6 +1,6 @@
 const container = document.getElementById("container");
 const catID = localStorage.getItem("catID");
-const Product = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
+const products = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
 const title = document.getElementById("h5-title");
 const descprice = "b-a";
 const ascprice = "a-b";
@@ -44,7 +44,6 @@ const showCategory = (array) => {
                     </div>
                     <small class="text-muted">` + product.soldCount + ` vendidos</small> 
                 </div>
-
             </div>
         </div>
     </div>
@@ -57,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     let category = "";
     let name = "";
 
-    getJSONData(Product).then(function (resultObj) {
+    getJSONData(products).then(function (resultObj) {
         if (resultObj.status === "ok") {
             category = resultObj.data.products;
             name = resultObj.data.catName;
@@ -68,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     });
 });
 
-const sortProduct = (method, array) => {
+const sortProducts = (method, array) => {
     let result = [];
     if (method === ascprice) {
         result = array.sort(function (a, b) { return a.cost - b.cost });
@@ -81,9 +80,9 @@ const sortProduct = (method, array) => {
 }
 
 const sortPetition = (method) => {
-    getJSONData(Product).then(function (obj) {
+    getJSONData(products).then(function (obj) {
         products = obj.data.products;
-        sortProduct(method, products);
+        sortProducts(method, products);
         showCategory(products);
     })
 }
@@ -117,7 +116,7 @@ document.getElementById("btnFilter").addEventListener("click", () => {
     else {
         maxCount = undefined;
     }
-    getJSONData(Product).then(function (resultObj) {
+    getJSONData(products).then(function (resultObj) {
         if (resultObj.status === "ok") {
             category = resultObj.data.products;
             if (maxCount !== undefined && maxCount !== undefined) {
@@ -135,7 +134,7 @@ document.getElementById("btnClearFilter").addEventListener("click", function () 
     maxCount = undefined;
     minCount = undefined;
     container.innerHTML = "";
-    getJSONData(Product).then(function (resultObj) {
+    getJSONData(products).then(function (resultObj) {
         if (resultObj.status === "ok") {
             category = resultObj.data.products;
             showCategory(category);
@@ -147,7 +146,7 @@ document.getElementById("input-search").addEventListener("input", (e) => {
     // reinicio el contenido de div
     container.innerHTML = "";
     // obtengo los productos a filtrar
-    getJSONData(Product).then((obj) => {
+    getJSONData(products).then((obj) => {
         if (obj.status === "ok") {
             let products = obj.data.products;
             let inputValue = e.target.value.toLowerCase();

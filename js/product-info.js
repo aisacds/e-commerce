@@ -1,23 +1,14 @@
 const productID = localStorage.getItem("productID");
-const productsList = JSON.parse(localStorage.getItem("Products")).filter(item => item.id != productID);
 const catID = localStorage.getItem("catID");
-const Product = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
+const product = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
 const container = document.getElementById("container");
 const productComments = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`
 const contImg = document.getElementById("container-img");
 const contComments = document.getElementById("container-comments");
 const contRelProducts = document.getElementById("rel-products");
-let textEmail = localStorage.getItem("email");
+const textEmail = localStorage.getItem("email");
 const divEmail = document.getElementById("divEmail");
 divEmail.innerHTML += textEmail;
-
-getJSONData(productComments).then(function (obj) {
-    if (obj.status === "ok") {
-        result = obj.data;
-        localStorage.setItem("comments", JSON.stringify(result))
-        addComments(JSON.parse(localStorage.getItem("comments")));
-    }
-})
 
 const showProduct = (array) => {
     let addContent = "";
@@ -37,7 +28,6 @@ const showProduct = (array) => {
                 <h5>Cantidad de vendidos</h5>
                 <p>`+ array.soldCount + `</p>
                 <h5>Imágenes ilustrativas</h5>
-
             </div>
         </div>
         `
@@ -51,7 +41,7 @@ const showProduct = (array) => {
     }
 }
 
-getJSONData(Product).then(function (resultObj) {
+getJSONData(product).then(function (resultObj) {
     if (resultObj.status === "ok") {
         array = resultObj.data;
         showProduct(array);
@@ -114,8 +104,6 @@ const addComments = (array) => {
     }
 }
 
-
-
 const addComment = (time, user, description, rating) => {
     let comment = "";
     comment = `
@@ -129,7 +117,15 @@ const addComment = (time, user, description, rating) => {
     starsAdd(rating, user);
 }
 
+let comments = [];
 
+getJSONData(productComments).then(function (obj) {
+    if (obj.status === "ok") {
+        result = obj.data;
+        comments = result;
+        addComments(comments);
+    }
+})
 
 document.getElementById("btncomment").addEventListener("click", function () {
     // guardo valores
@@ -138,11 +134,11 @@ document.getElementById("btncomment").addEventListener("click", function () {
     let date = new Date();
     let today = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
     let time = date.toLocaleTimeString();
-    // obtengo los comentarios ya añadidos y guardados en localstorage
-    let array = JSON.parse(localStorage.getItem("comments")).reverse();
+    // obtengo los comentarios y invierto
+    let array = comments.reverse();
     // creo objeto para añadir a los comentarios
     let arr = {
-        product: array[0].product,
+        product: parseInt(productID),
         score: select,
         description: textarea,
         user: textEmail,
@@ -154,8 +150,6 @@ document.getElementById("btncomment").addEventListener("click", function () {
     addComments(array.reverse());
 })
 
-console.log(productsList);
-
 function changeProductID(id) {
     localStorage.setItem("productID", id);
     window.location = "product-info.html";
@@ -166,6 +160,7 @@ const carouselInd = document.querySelector(".carousel-indicators");
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    const relProducts = JSON.parse(localStorage.getItem("Products")).filter(item => item.id != productID);
     const addBtnRel = (array) => {
         let addBtn = "";
 
@@ -174,41 +169,33 @@ document.addEventListener("DOMContentLoaded", function () {
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="`+ [i] + `"
                     aria-label="Slide `+ [i] + `"></button>`
             carouselInd.innerHTML += addBtn;
-
         }
     }
-    addBtnRel(productsList);
+    addBtnRel(relProducts);
 
     const addRelProducts = (array) => {
         let addProductActive = "";
 
         addProductActive = `
     <div class="carousel-item active">
-    <a onclick="changeProductID(`+ array[0].id +`)" href="product-info.html">
-      <img src="`+ array[0].image + `" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>`+ array[0].name + `</p>
-      </div>
+        <a onclick="changeProductID(`+ array[0].id +`)" href="product-info.html">
+            <img src="`+ array[0].image + `" class="d-block w-100" alt="...">
+        </a>
     </div>
-    </a>`
+    `
         carousel.innerHTML += addProductActive;
 
         let addProducts = "";
         for (let i = 1; i < array.length; i++) {
             addProducts = `
     <div class="carousel-item">
-            <a onclick="changeProductID(`+ array[i].id +`)" href="product-info.html">
-                <img src="` + array[i].image + `"
-                  class="d-block w-100" alt="">
-                <div class="carousel-caption d-none d-md-block">
-                  <p>`+ array[i].name + `</p>
-                </div>
-                </a>
-              </div>
-            
+        <a onclick="changeProductID(`+ array[i].id +`)" href="product-info.html">
+            <img src="` + array[i].image + `"class="d-block w-100" alt="">
+         </a>
+    </div>
             `
             carousel.innerHTML += addProducts;
         }
     }
-    addRelProducts(productsList);
+    addRelProducts(relProducts);
 })
