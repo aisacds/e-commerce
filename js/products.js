@@ -8,9 +8,22 @@ const relevant = "relevant";
 let minCount = undefined;
 let maxCount = undefined;
 let textEmail = localStorage.getItem("email");
-const divEmail = document.getElementById("divEmail");
+const btnEmail = document.getElementById("dropdownMenuButton");
+const dropMenu = document.getElementById("dropmenu");
 
-divEmail.innerHTML += textEmail;
+btnEmail.innerHTML += textEmail;
+
+const menu = ()=> {
+    let value = btnEmail.getAttribute("aria-expanded");
+    if(value == "true") {
+        btnEmail.setAttribute("aria-expanded", "false");
+        dropMenu.setAttribute("hidden", "")
+    }
+    if (value == "false") {
+        btnEmail.setAttribute("aria-expanded", "true");
+        dropMenu.removeAttribute("hidden")
+    }
+}
 
 function insertName(name) {
     let addContentHeader = "";
@@ -81,7 +94,7 @@ const sortProducts = (method, array) => {
 
 const sortPetition = (method) => {
     getJSONData(products).then(function (obj) {
-        products = obj.data.products;
+        let products = obj.data.products;
         sortProducts(method, products);
         showCategory(products);
     })

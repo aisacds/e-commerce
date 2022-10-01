@@ -36,6 +36,3 @@ const menu = ()=> {
     }
 }
 
-const removeLS = ()=> {
-    localStorage.clear();
-}

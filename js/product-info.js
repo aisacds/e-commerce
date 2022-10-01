@@ -6,9 +6,23 @@ const productComments = `https://japceibal.github.io/emercado-api/products_comme
 const contImg = document.getElementById("container-img");
 const contComments = document.getElementById("container-comments");
 const contRelProducts = document.getElementById("rel-products");
-const textEmail = localStorage.getItem("email");
-const divEmail = document.getElementById("divEmail");
-divEmail.innerHTML += textEmail;
+let textEmail = localStorage.getItem("email");
+const btnEmail = document.getElementById("dropdownMenuButton");
+const dropMenu = document.getElementById("dropmenu");
+
+btnEmail.innerHTML += textEmail;
+
+const menu = ()=> {
+    let value = btnEmail.getAttribute("aria-expanded");
+    if(value == "true") {
+        btnEmail.setAttribute("aria-expanded", "false");
+        dropMenu.setAttribute("hidden", "")
+    }
+    if (value == "false") {
+        btnEmail.setAttribute("aria-expanded", "true");
+        dropMenu.removeAttribute("hidden")
+    }
+}
 
 const showProduct = (array) => {
     let addContent = "";
@@ -43,8 +57,9 @@ const showProduct = (array) => {
 
 getJSONData(product).then(function (resultObj) {
     if (resultObj.status === "ok") {
-        array = resultObj.data;
-        showProduct(array);
+        let products = resultObj.data;
+        showProduct(products);
+        
     }
 });
 
@@ -117,13 +132,12 @@ const addComment = (time, user, description, rating) => {
     starsAdd(rating, user);
 }
 
-let comments = [];
-
 getJSONData(productComments).then(function (obj) {
     if (obj.status === "ok") {
         result = obj.data;
-        comments = result;
+        let comments = result;
         addComments(comments);
+        localStorage.setItem("comments", JSON.stringify(comments));
     }
 })
 
@@ -135,7 +149,7 @@ document.getElementById("btncomment").addEventListener("click", function () {
     let today = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
     let time = date.toLocaleTimeString();
     // obtengo los comentarios y invierto
-    let array = comments.reverse();
+    let array = JSON.parse(localStorage.getItem("comments")).reverse();
     // creo objeto para añadir a los comentarios
     let arr = {
         product: parseInt(productID),
@@ -150,52 +164,45 @@ document.getElementById("btncomment").addEventListener("click", function () {
     addComments(array.reverse());
 })
 
+ // funcion onclick para cambiar de producto al relacionado
 function changeProductID(id) {
     localStorage.setItem("productID", id);
     window.location = "product-info.html";
 }
 
-const carousel = document.querySelector(".carousel-inner");
-const carouselInd = document.querySelector(".carousel-indicators");
-
 document.addEventListener("DOMContentLoaded", function () {
 
-    const relProducts = JSON.parse(localStorage.getItem("Products")).filter(item => item.id != productID);
-    const addBtnRel = (array) => {
-        let addBtn = "";
-
-        for (let i = 1; i < array.length; i++) {
-            addBtn = `
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="`+ [i] + `"
-                    aria-label="Slide `+ [i] + `"></button>`
-            carouselInd.innerHTML += addBtn;
-        }
-    }
-    addBtnRel(relProducts);
-
+    const carousel = document.querySelector(".carousel-inner");
     const addRelProducts = (array) => {
         let addProductActive = "";
 
+        // agrego el primer producto como activo
         addProductActive = `
     <div class="carousel-item active">
-        <a onclick="changeProductID(`+ array[0].id +`)" href="product-info.html">
+        <a onclick="changeProductID(`+ array[0].id + `)" href="product-info.html">
             <img src="`+ array[0].image + `" class="d-block w-100" alt="...">
         </a>
     </div>
     `
         carousel.innerHTML += addProductActive;
 
-        let addProducts = "";
-        for (let i = 1; i < array.length; i++) {
-            addProducts = `
+        let addProduct = "";
+
+        // segundo producto
+        addProduct = `
     <div class="carousel-item">
-        <a onclick="changeProductID(`+ array[i].id +`)" href="product-info.html">
-            <img src="` + array[i].image + `"class="d-block w-100" alt="">
+        <a onclick="changeProductID(`+ array[1].id + `)" href="product-info.html">
+            <img src="` + array[1].image + `"class="d-block w-100" alt="">
          </a>
     </div>
             `
-            carousel.innerHTML += addProducts;
-        }
+        carousel.innerHTML += addProduct;
     }
-    addRelProducts(relProducts);
+    // obtengo el json y accedo a productos relacionados
+    getJSONData(product).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            let products = resultObj.data.relatedProducts;
+            addRelProducts(products);
+        }
+    });
 })
