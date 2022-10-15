@@ -36,3 +36,20 @@ const menu = ()=> {
     }
 }
 
+const productLink = "https://japceibal.github.io/emercado-api/user_cart/25801.json";
+
+document.addEventListener("DOMContentLoaded", getJson(productLink))
+
+async function getJson(link) {
+    try {
+        response = await fetch(link);
+        result = await response.json();
+        let product = result.articles;
+        let cart = localStorage.getItem("cart")
+        cart? product = JSON.parse(localStorage.getItem("cart")) : localStorage.setItem("cart", JSON.stringify(product));
+    }
+
+    catch (e) {
+        console.log(e);
+    }
+}

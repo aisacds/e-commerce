@@ -46,6 +46,21 @@
                 const signOff = () => {
                   localStorage.clear();
                 }
+                let textEmail = localStorage.getItem("email");
+                const btnEmail = document.getElementById("dropdownMenuButton");
+                const dropMenu = document.getElementById("dropmenu");
+                btnEmail.innerHTML += textEmail;
+                const menu = () => {
+                  let value = btnEmail.getAttribute("aria-expanded");
+                  if (value == "true") {
+                    btnEmail.setAttribute("aria-expanded", "false");
+                    dropMenu.setAttribute("hidden", "")
+                  }
+                  if (value == "false") {
+                    btnEmail.setAttribute("aria-expanded", "true");
+                    dropMenu.removeAttribute("hidden")
+                  }
+                }
               </script>
             </div>
           </li>
@@ -53,11 +68,11 @@
       </div>
     </div>
   </nav>
-  <main id="main-product-info">
+  <main class="main-product-info">
     <div id="container">
 
     </div>
-    <div id="container-img" class="d-flex justify-content-center">
+    <div id="container-img" class="d-flex justify-content-evenly">
 
     </div>
     <hr>
@@ -66,51 +81,51 @@
       <div id="container-comments">
       </div>
     </div>
-      <br>
-      <div id="addcomment-rel" class="d-flex">
-        
-        <div id="addcomment">
-          <h3>Comentar</h3>
-          <p>Tu opinion:</p>
-          <textarea name="" id="textarea-comment" cols="50" required></textarea>
-          <p>Tu puntuación:</p>
-          <select name="" id="selectcomment" onchange="" required>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <button id="btncomment">Enter</button>
-        </div>
-        <div id="rel-products" class="border">
-          <h4 class="">Productos relacionados...</h4>
-          <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-            </div>
-            <div class="carousel-inner">
-              </div>
-            
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+    <br>
+    <div id="addcomment-rel" class="d-flex">
+
+      <div id="addcomment">
+        <h3>Comentar</h3>
+        <p>Tu opinion:</p>
+        <textarea name="" id="textarea-comment" cols="50" required></textarea>
+        <p>Tu puntuación:</p>
+        <select name="" id="selectcomment" onchange="" required>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button id="btncomment">Enter</button>
+      </div>
+      <div id="rel-products" class="border">
+        <h4 class="">Productos relacionados...</h4>
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+          </div>
+          <div class="carousel-inner">
           </div>
 
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
-      </div>
 
-    
+      </div>
+    </div>
+
+
   </main>
   <footer class="text-muted">
     <div class="container">

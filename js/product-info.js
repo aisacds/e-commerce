@@ -6,48 +6,50 @@ const productComments = `https://japceibal.github.io/emercado-api/products_comme
 const contImg = document.getElementById("container-img");
 const contComments = document.getElementById("container-comments");
 const contRelProducts = document.getElementById("rel-products");
-let textEmail = localStorage.getItem("email");
-const btnEmail = document.getElementById("dropdownMenuButton");
-const dropMenu = document.getElementById("dropmenu");
+const PRODUCTS_URLs = `https://japceibal.github.io/emercado-api/cats_products/${productID}.json`;
 
-btnEmail.innerHTML += textEmail;
-
-const menu = ()=> {
-    let value = btnEmail.getAttribute("aria-expanded");
-    if(value == "true") {
-        btnEmail.setAttribute("aria-expanded", "false");
-        dropMenu.setAttribute("hidden", "")
-    }
-    if (value == "false") {
-        btnEmail.setAttribute("aria-expanded", "true");
-        dropMenu.removeAttribute("hidden")
-    }
+// funcion que añade el producto al carrito al onclick del boton
+const setInCart = ()=> {
+    getJSONData(product).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            let product = resultObj.data;
+            cart = JSON.parse(localStorage.getItem("cart"));
+            cart.push(product);
+            localStorage.setItem("cart", JSON.stringify(cart))
+            alert("Añadido con éxito");
+        }
+    });
+    
 }
 
-const showProduct = (array) => {
+const showProduct = (product) => {
     let addContent = "";
     let addImg = "";
+    let { name, currency, cost, description, category, soldCount, images} = product;
 
     addContent = `
         <div class="content-info">
-            <h1>`+ array.name + `</h1>
+        <div class="">
+            <h1 class="d-inline">`+ name + `</h1>
+            <button class="btn btn-success ms-5" onclick="setInCart()">Añadir al carrito</button>
+            </div>
             <hr>
             <div class="m-4">
                 <h5>Precio</h5>
-                <p>`+ array.currency + " " + array.cost + `<p>
+                <p>`+ currency + " " + cost + `<p>
                 <h5>Descripción</h5>
-                <p>`+ array.description + `</p>
+                <p>`+ description + `</p>
                 <h5>Categoria</h5>
-                <p>`+ array.category + `</p>
+                <p>`+ category + `</p>
                 <h5>Cantidad de vendidos</h5>
-                <p>`+ array.soldCount + `</p>
+                <p>`+ soldCount + `</p>
                 <h5>Imágenes ilustrativas</h5>
             </div>
         </div>
         `
     container.innerHTML += addContent;
 
-    for (let item of array.images) {
+    for (let item of images) {
         addImg = `
                 <img class="col-2 m-3" src="`+ item + `"/>
             `
@@ -107,11 +109,13 @@ const starsAdd = (score, element) => {
 const addComments = (array) => {
     let comments = "";
     for (let item of array) {
+        let { user, dateTime, description } = item;
+
         comments = `
     <div class="comments border p-1">
-        <p class ="m-1" id="`+ item.user + `"><b>` + item.user + `</b>` + " - " + item.dateTime + " - " + ` 
+        <p class ="m-1" id="`+ user + `"><b>` + user + `</b>` + " - " + dateTime + " - " + ` 
         </p>
-        <p class="m-1">`+ item.description + `</p>
+        <p class="m-1">`+ description + `</p>
     </div>
     `
         contComments.innerHTML += comments;

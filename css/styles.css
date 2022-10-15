@@ -219,7 +219,7 @@ div.log-cont {
   margin-bottom: 0;
 }
 
-#main-product-info {
+.main-product-info {
   max-width: 90%;
   margin: 0 auto;
 }
@@ -270,6 +270,10 @@ div.content-info {
 #dropmenu {
   background-color: #212529;
   color: rgba(255, 255, 255, 0.55);
+}
+
+#content-cart {
+  max-width: 70%;
 }
 
 
