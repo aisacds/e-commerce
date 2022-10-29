@@ -97,8 +97,8 @@ footer p {
 
 .alert {
   position: fixed;
-  top: 80px;
-  width: 50%;
+  top: 30%;
+  width: 30%;
   left: 50%;
   transform: translate(-50%, 0);
 }

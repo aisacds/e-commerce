@@ -41,25 +41,25 @@ function setProductID(id) {
 const showCategory = (array) => {
     let addContent = "";
 
-    for (let i = 0; i < array.length; i++) {
-        let product = array[i];
+    for (let item of array) {
+        let { id, image, name, cost, currency, description, soldCount} = item
         addContent = `
-        <div class="list-group-item list-group-item-action" onclick="setProductID(`+ product.id + `)">
-        <div class="row">
-            <div class="col-3">
-                <img src="` + product.image + `" alt="product image" class="img-thumbnail">
-            </div>
-            <div class="col">
-                <div class="d-flex w-100 justify-content-between">
-                    <div class="mb-1">
-                    <h4>`+ product.name + " - " + product.cost + " " + product.currency + `</h4> 
-                    <p> `+ product.description + `</p> 
+        <div class="list-group-item list-group-item-action" onclick="setProductID(`+ id + `)">
+            <div class="row">
+                <div class="col-3">
+                    <img src="` + image + `" alt="product image" class="img-thumbnail">
+                </div>
+                <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="mb-1">
+                            <h4>`+ name + " - " + cost + " " + currency + `</h4> 
+                            <p> `+ description + `</p> 
+                        </div>
+                        <small class="text-muted">` + soldCount + ` vendidos</small> 
                     </div>
-                    <small class="text-muted">` + product.soldCount + ` vendidos</small> 
                 </div>
             </div>
         </div>
-    </div>
         `
         container.innerHTML += addContent;
     }

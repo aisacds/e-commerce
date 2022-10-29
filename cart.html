@@ -75,42 +75,111 @@
       <div id="content-cart">
         <h4 class="m-4">Artículos a comprar</h4>
         <table class="table">
-          <tr>
-            <th>Producto</th>
-            <th>Nombre</th>
-            <th>Costo</th>
-            <th>Cantidad</th>
-            <th>Subtotal</th>
-          </tr>
-          <tr id="table-cart">
-
-          </tr>
+          
+          
         </table>
 
         <h4>Tipo de envío</h4>
-        <input type="radio" name="radio">
+        <form class="valid-dates">
+        <input type="radio" name="envio-radio" id="premium-radio"value="0.15">
         <label for="radio">Premium 2 a 5 dias (15%)</label>
         <br>
-        <input type="radio" name="radio">
+        <input type="radio" name="envio-radio" id="express-radio" value="0.07">
         <label for="radio">Express 5 a 8 dias (7%)</label>
         <br>
-        <input type="radio" name="radio">
+        <input type="radio" name="envio-radio" id="standard-radio" value="0.05" checked>
         <label for="radio">Standard 12 a 15 dias (5%)</label>
         <br><br>
         <h4>Dirección de envío</h4>
+        
         <label for="name">Calle:</label>
         <br>
-        <input type="text">
+        <input type="text" class="form-control send-dates" required>
         <br>
         <label for="name">Número:</label>
         <br>
-        <input type="text">
+        <input type="number" class="form-control send-dates" required>
         <br>
         <label for="name">Esquina:</label>
         <br>
-        <input type="text">
-
+        <input type="text" class="form-control send-dates" required>
+      </form>
+      
+      <hr>
+      <h3>Costos</h3>
+      <div class="content-cost">
+        <div class="border">
+          <p class="m-0">Subtotal<span id="subtotal" class="float-end"></span></p>
+          <span class="text-muted">Costo unitario del producto por cantidad</span>
+        </div>
+        <div>
+          <div class="border">
+            <p class="m-0">Costo de envío<span id="envio" class="float-end">Selecciona un tipo de envío</span></p>
+            <span class="text-muted">Según el tipo de envío</span>
+          </div>
+        </div>
+        <div>
+          <div class="border">
+            <p class="m-1">Total($)<span id="total" class="float-end bg-success text-light"></span></p>
+          </div>
+        </div>
       </div>
+      <br>
+      <hr>
+      <h3>Forma de pago</h3>
+      <p class="m-0">Transferencia bancaria <span><!-- Button trigger modal -->
+        <button type="button" class="btn btn-link mb-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Seleccionar
+        </button></span><span hidden class="text-danger" id="validationPago">Debe completar los campos.</span></p>
+        
+      <br>
+<!-- Modal -->
+<div class="modal modal-fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Forma de pago</h5>
+       
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="valid-payment">
+        <input type="radio" name="pago-radio" id="credit-radio" onclick="checkPago()">
+        <label for="name">Tarjeta de crédito</label>
+        <hr>
+        <label for="name">Número de tarjeta:</label>
+        <br>
+        <input type="number" class="credit-input form-control" onkeyup="checkPago()" disabled required>
+        <br>
+        <label for="name">Código de seguridad</label>
+        <br>
+        <input type="text" class="credit-input form-control" onkeyup="checkPago()" disabled required>
+        <br>
+        <label for="name">Vencimiento (MM/AA)</label>
+        <br>
+        <input type="text" class="credit-input form-control" onkeyup="checkPago()" disabled required>
+        <br><hr>
+        <input type="radio" name="pago-radio" id="bank-radio" onclick="checkPago()">
+        <label for="name">Transferencia bancaria</label>
+        <br><hr>
+        <label for="name">Número de cuenta</label>
+        <br>
+        <input type="number" class="bank-input form-control" onkeyup="checkPago()" disabled required>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+      <button class="btn btn-primary p-1 w-100" id="buy-btn">Finalizar compra</button>
+    </div>
+    </div>
+    <div class="alert alert-success" id="alert-success" hidden>
+      ¡Has comprado con éxito!
+
+      <button class="btn btn-close float-end" id="btn-alert"></button>
     </div>
   </main>
   <footer class="text-muted">

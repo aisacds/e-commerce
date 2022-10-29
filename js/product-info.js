@@ -8,18 +8,30 @@ const contComments = document.getElementById("container-comments");
 const contRelProducts = document.getElementById("rel-products");
 const PRODUCTS_URLs = `https://japceibal.github.io/emercado-api/cats_products/${productID}.json`;
 
-// funcion que añade el producto al carrito al onclick del boton
+async function getProduct(link) {
+    try {
+        response = await fetch(link);
+        result = await response.json();
+        return result;
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+getProduct(product).then(function (result) {
+    console.log(result)
+
+})
+
+// add product in cart
 const setInCart = ()=> {
-    getJSONData(product).then(function (resultObj) {
-        if (resultObj.status === "ok") {
-            let product = resultObj.data;
+    getProduct(product).then(function (result) {
             cart = JSON.parse(localStorage.getItem("cart"));
-            cart.push(product);
+            cart.push(result);
             localStorage.setItem("cart", JSON.stringify(cart))
             alert("Añadido con éxito");
-        }
     });
-    
 }
 
 const showProduct = (product) => {
@@ -29,9 +41,9 @@ const showProduct = (product) => {
 
     addContent = `
         <div class="content-info">
-        <div class="">
-            <h1 class="d-inline">`+ name + `</h1>
-            <button class="btn btn-success ms-5" onclick="setInCart()">Añadir al carrito</button>
+            <div class="">
+                <h1 class="d-inline">`+ name + `</h1>
+                <button class="btn btn-success ms-5" onclick="setInCart()">Añadir al carrito</button>
             </div>
             <hr>
             <div class="m-4">
@@ -57,12 +69,8 @@ const showProduct = (product) => {
     }
 }
 
-getJSONData(product).then(function (resultObj) {
-    if (resultObj.status === "ok") {
-        let products = resultObj.data;
-        showProduct(products);
-        
-    }
+getProduct(product).then(function (result) {
+        showProduct(result);
 });
 
 const starsAdd = (score, element) => {
@@ -127,8 +135,7 @@ const addComment = (time, user, description, rating) => {
     let comment = "";
     comment = `
     <div class="comments border p-1">
-        <p class ="m-1" id="`+ user + `"><b>` + user + `</b>` + " - " + time + " - " + ` 
-        </p>
+        <p class ="m-1" id="`+ user + `"><b>` + user + `</b>` + " - " + time + " - " + `</p>
         <p class="m-1">`+ description + `</p>
     </div>
     `
@@ -136,25 +143,20 @@ const addComment = (time, user, description, rating) => {
     starsAdd(rating, user);
 }
 
-getJSONData(productComments).then(function (obj) {
-    if (obj.status === "ok") {
-        result = obj.data;
-        let comments = result;
-        addComments(comments);
-        localStorage.setItem("comments", JSON.stringify(comments));
-    }
+getProduct(productComments).then(function (result) {
+        addComments(result);
+        localStorage.setItem("comments", JSON.stringify(result));
 })
 
+// add new comment
 document.getElementById("btncomment").addEventListener("click", function () {
-    // guardo valores
+
     const select = parseInt(document.getElementById("selectcomment").value);
     let textarea = document.getElementById("textarea-comment").value;
     let date = new Date();
     let today = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
     let time = date.toLocaleTimeString();
-    // obtengo los comentarios y invierto
     let array = JSON.parse(localStorage.getItem("comments")).reverse();
-    // creo objeto para añadir a los comentarios
     let arr = {
         product: parseInt(productID),
         score: select,
@@ -162,25 +164,25 @@ document.getElementById("btncomment").addEventListener("click", function () {
         user: textEmail,
         dateTime: today + " " + time
     }
-    // a los comentarios le agrego el comentario nuevo (objeto)
     array.push(arr);
     contComments.innerHTML = "";
     addComments(array.reverse());
 })
 
- // funcion onclick para cambiar de producto al relacionado
+// for carousel items
 function changeProductID(id) {
     localStorage.setItem("productID", id);
     window.location = "product-info.html";
 }
 
+// carousel
 document.addEventListener("DOMContentLoaded", function () {
 
     const carousel = document.querySelector(".carousel-inner");
     const addRelProducts = (array) => {
         let addProductActive = "";
 
-        // agrego el primer producto como activo
+        // first active
         addProductActive = `
     <div class="carousel-item active">
         <a onclick="changeProductID(`+ array[0].id + `)" href="product-info.html">
@@ -192,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let addProduct = "";
 
-        // segundo producto
+        // second item
         addProduct = `
     <div class="carousel-item">
         <a onclick="changeProductID(`+ array[1].id + `)" href="product-info.html">
@@ -203,10 +205,8 @@ document.addEventListener("DOMContentLoaded", function () {
         carousel.innerHTML += addProduct;
     }
     // obtengo el json y accedo a productos relacionados
-    getJSONData(product).then(function (resultObj) {
-        if (resultObj.status === "ok") {
-            let products = resultObj.data.relatedProducts;
+    getProduct(product).then(function (result) {
+            let products = result.relatedProducts;
             addRelProducts(products);
-        }
     });
 })
