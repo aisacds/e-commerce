@@ -70,10 +70,10 @@
 
     <div class="content-info">
 
-      <h1 class="">Carrito de compras</h1>
+      <h1 class="text-center">Carrito de compras</h1>
       <hr>
       <div id="content-cart">
-        <h4 class="m-4">Artículos a comprar</h4>
+        <h4 class="mt-4 mb-4">Artículos a comprar</h4>
         <table class="table">
           
           
@@ -95,32 +95,41 @@
         <label for="name">Calle:</label>
         <br>
         <input type="text" class="form-control send-dates" required>
+        <div class="invalid-feedback">
+          Campo requerido
+        </div>
         <br>
         <label for="name">Número:</label>
         <br>
         <input type="number" class="form-control send-dates" required>
+        <div class="invalid-feedback">
+          Campo requerido
+        </div>
         <br>
         <label for="name">Esquina:</label>
         <br>
         <input type="text" class="form-control send-dates" required>
+        <div class="invalid-feedback">
+          Campo requerido
+        </div>
       </form>
       
       <hr>
       <h3>Costos</h3>
       <div class="content-cost">
         <div class="border">
-          <p class="m-0">Subtotal<span id="subtotal" class="float-end"></span></p>
-          <span class="text-muted">Costo unitario del producto por cantidad</span>
+          <p class="m-0 ms-3">Subtotal<span id="subtotal" class="float-end mx-3"></span></p>
+          <span class="text-muted ms-3">Costo unitario del producto por cantidad</span>
         </div>
         <div>
           <div class="border">
-            <p class="m-0">Costo de envío<span id="envio" class="float-end">Selecciona un tipo de envío</span></p>
-            <span class="text-muted">Según el tipo de envío</span>
+            <p class="m-0 ms-3">Costo de envío<span id="envio" class="float-end mx-3">Selecciona un tipo de envío</span></p>
+            <span class="text-muted ms-3">Según el tipo de envío</span>
           </div>
         </div>
         <div>
           <div class="border">
-            <p class="m-1">Total($)<span id="total" class="float-end bg-success text-light"></span></p>
+            <p class="m-1 ms-3">Total($)<span id="total" class="float-end bg-success text-light mx-2"></span></p>
           </div>
         </div>
       </div>

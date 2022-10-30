@@ -1,6 +1,7 @@
 const container = document.getElementById("table-cart");
 const table = document.querySelector(".table");
 const productLink = "https://japceibal.github.io/emercado-api/user_cart/25801.json";
+
 let products;
 
 document.addEventListener("DOMContentLoaded", getJson(productLink))
@@ -45,7 +46,7 @@ const showTable = (array) => {
 
         if (item.unitCost) {
 
-            let { image, name, unitCost, currency, id } = array[0]
+            let { image, name, unitCost, currency, id } = item
 
             addHTMLContent = `
     <br>
@@ -74,6 +75,7 @@ const showTable = (array) => {
         }
     }
 }
+
 // cambiar subtotal mediante la cantidad del producto
 const changeSubTotal = (id) => {
     let inputValue = parseInt(document.querySelector(`.input-${id}`).value);
@@ -84,19 +86,15 @@ const changeSubTotal = (id) => {
     showCosts()
 }
 
-function getInputValue(id) {
-    return document.querySelector(`.input-${id}`).value;
-}
-
 const radios = document.querySelectorAll('input[name="envio-radio"]');
 radios.forEach(radio => radio.addEventListener("input", showCosts));
 
-// mostrar costos dinamicos
+// mostrar costos dinámicos
 function showCosts() {
     const contEnvio = document.getElementById("envio");
     const contSubtotal = document.getElementById("subtotal");
     const contTotal = document.getElementById("total");
-    let typeSend = document.querySelectorAll('input[name="envio-radio"]:checked');
+    let radio = document.querySelectorAll('input[name="envio-radio"]:checked');
 
     let array = [];
 
@@ -104,24 +102,11 @@ function showCosts() {
         let input = document.querySelector(`.input-${item.id}`).value;
         item.unitCost ? array.push(item.unitCost * input) : array.push(item.cost * input);
     }
-    let newArray = array.reduce(
-        (previousValue, currentValue) => previousValue + currentValue)
-    contEnvio.innerHTML = Math.round(newArray * typeSend[0].defaultValue) + " " + products[0].currency;
-    contSubtotal.innerHTML = newArray + " " + products[0].currency;
-    contTotal.innerHTML = newArray + Math.round((newArray * typeSend[0].defaultValue)) + " " + products[0].currency;
+    let totalCosts = array.reduce((previousValue, currentValue) => previousValue + currentValue)
+    contSubtotal.innerHTML = totalCosts + " " + products[0].currency;
+    contEnvio.innerHTML = Math.round(totalCosts * radio[0].defaultValue) + " " + products[0].currency;
+    contTotal.innerHTML = totalCosts + Math.round((totalCosts * radio[0].defaultValue)) + " " + products[0].currency;
 
-}
-
-// eliminar producto del carrito
-const deleteItem = (id) => {
-    let cart = JSON.parse(localStorage.getItem("cart"))
-    let found = cart.findIndex(item => item.id === id);
-    cart.splice(found, 1);
-    products = cart
-    localStorage.setItem("cart", JSON.stringify(cart))
-    table.innerHTML = "";
-    showTable(products);
-    showCosts()
 }
 
 // validación forma de pago
@@ -145,16 +130,14 @@ function checkPago() {
             bankInput.disabled = true;
             form.classList.add("was-validated")
         }
-
         let credits = Array.from(creditInputs)
         if (credits.every(item => item.value !== "") || bankInput.value !== "") {
             span.hidden = true
         } else { span.hidden = false }
-
-
     }
-
 }
+
+// validación boton comprar
 const btnAlert = document.getElementById("btn-alert");
 const divAlert = document.getElementById("alert-success");
 
@@ -170,19 +153,33 @@ document.getElementById("buy-btn").addEventListener("click", function () {
     let dates = Array.from(sendDates);
     let credits = Array.from(creditInputs);
     if (bank.checked && bankInput.value !== "" || credit.checked && credits.every(item => item.value !== "")) {
-        if (dates.every(item => item.value !== "")){
+        if (dates.every(item => item.value !== "")) {
             divAlert.hidden = false;
         }
-
     } else { span.hidden = false }
-
 })
 
-
-
-btnAlert.addEventListener("click", function() {
+// cerrar alerta
+btnAlert.addEventListener("click", function () {
     divAlert.hidden = true;
 })
 
+// eliminar producto del carrito (desafíate)
+const deleteItem = (id) => {
+    let cart = JSON.parse(localStorage.getItem("cart"))
+    let found = cart.findIndex(item => item.id === id);
+    cart.splice(found, 1);
+    products = cart
+    localStorage.setItem("cart", JSON.stringify(cart))
+    table.innerHTML = "";
+    for (item of products) {
+        if (item.currency !== "USD") {
+            item.currency = "USD";
+            item.cost = Math.round((item.cost / 41));
+        }
+    }
+    showTable(products);
+    showCosts()
+}
 
 

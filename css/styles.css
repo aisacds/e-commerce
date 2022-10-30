@@ -235,6 +235,7 @@ div.comments {
 
 div.content-info {
   margin: 1rem;
+  
 }
 
 #addcomment {
@@ -274,6 +275,7 @@ div.content-info {
 
 #content-cart {
   max-width: 70%;
+  margin: 0 auto;
 }
 
 
