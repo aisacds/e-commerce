@@ -41,9 +41,9 @@ const showProduct = (product) => {
 
     addContent = `
         <div class="content-info">
-            <div class="">
+            <div class="d-flex flex-column text-center d-md-flex flex-md-row text-md-start justify-content-md-between">
                 <h1 class="d-inline">`+ name + `</h1>
-                <button class="btn btn-success ms-5" onclick="setInCart()">Añadir al carrito</button>
+                <button class="btn btn-success mt-2  mb-sm-3  mx-lg-5" onclick="setInCart()">Añadir al carrito</button>
             </div>
             <hr>
             <div class="m-4">
@@ -63,7 +63,7 @@ const showProduct = (product) => {
 
     for (let item of images) {
         addImg = `
-                <img class="col-2 m-3" src="`+ item + `"/>
+                <img class="col-5 m-2 col-md-2 col-lg-2" src="`+ item + `"/>
             `
         contImg.innerHTML += addImg;
     }

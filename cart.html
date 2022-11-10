@@ -49,7 +49,7 @@
                 btnEmail.innerHTML += textEmail;
                 const menu = () => {
                   let value = btnEmail.getAttribute("aria-expanded");
-                  
+
                   if (value == "true") {
                     btnEmail.setAttribute("aria-expanded", "false");
                     dropMenu.setAttribute("hidden", "")
@@ -66,22 +66,23 @@
       </div>
     </div>
   </nav>
-  <main class="main-product-info">
+  <main class="">
 
-    <div class="content-info">
+    <div class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
 
-      <h1 class="text-center">Carrito de compras</h1>
+      <h1 class="text-center mt-3">Carrito de compras</h1>
       <hr>
-      <div id="content-cart">
-        <h4 class="mt-4 mb-4">Artículos a comprar</h4>
+      <h4 class="mt-4 mb-4">Artículos a comprar</h4>
+      <div style="overflow-x: auto;">
+        
         <table class="table">
-          
-          
-        </table>
 
-        <h4>Tipo de envío</h4>
-        <form class="valid-dates">
-        <input type="radio" name="envio-radio" id="premium-radio"value="0.15">
+
+        </table>
+      </div>
+      <h4>Tipo de envío</h4>
+      <form class="valid-dates">
+        <input type="radio" name="envio-radio" id="premium-radio" value="0.15">
         <label for="radio">Premium 2 a 5 dias (15%)</label>
         <br>
         <input type="radio" name="envio-radio" id="express-radio" value="0.07">
@@ -91,7 +92,7 @@
         <label for="radio">Standard 12 a 15 dias (5%)</label>
         <br><br>
         <h4>Dirección de envío</h4>
-        
+
         <label for="name">Calle:</label>
         <br>
         <input type="text" class="form-control send-dates" required>
@@ -113,7 +114,7 @@
           Campo requerido
         </div>
       </form>
-      
+
       <hr>
       <h3>Costos</h3>
       <div class="content-cost">
@@ -123,7 +124,8 @@
         </div>
         <div>
           <div class="border">
-            <p class="m-0 ms-3">Costo de envío<span id="envio" class="float-end mx-3">Selecciona un tipo de envío</span></p>
+            <p class="m-0 ms-3">Costo de envío<span id="envio" class="float-end mx-3">Selecciona un tipo de
+                envío</span></p>
             <span class="text-muted ms-3">Según el tipo de envío</span>
           </div>
         </div>
@@ -136,54 +138,59 @@
       <br>
       <hr>
       <h3>Forma de pago</h3>
-      <p class="m-0">Transferencia bancaria <span><!-- Button trigger modal -->
-        <button type="button" class="btn btn-link mb-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Seleccionar
-        </button></span><span hidden class="text-danger" id="validationPago">Debe completar los campos.</span></p>
-        
+      <p class="m-0">Transferencia bancaria <span>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-link mb-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Seleccionar
+          </button>
+        </span><span hidden class="text-danger" id="validationPago">Debe completar los campos.</span></p>
+
       <br>
-<!-- Modal -->
-<div class="modal modal-fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Forma de pago</h5>
-       
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <!-- Modal -->
+      <div class="modal modal-fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Forma de pago</h5>
+
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form class="valid-payment">
+                <input type="radio" name="pago-radio" id="credit-radio" onclick="checkPago()">
+                <label for="name">Tarjeta de crédito</label>
+                <hr>
+                <label for="name">Número de tarjeta:</label>
+                <br>
+                <input type="number" class="credit-input form-control" onkeyup="checkPago()" disabled required>
+                <br>
+                <label for="name">Código de seguridad</label>
+                <br>
+                <input type="text" class="credit-input form-control" onkeyup="checkPago()" disabled required>
+                <br>
+                <label for="name">Vencimiento (MM/AA)</label>
+                <br>
+                <input type="text" class="credit-input form-control" onkeyup="checkPago()" disabled required>
+                <br>
+                <hr>
+                <input type="radio" name="pago-radio" id="bank-radio" onclick="checkPago()">
+                <label for="name">Transferencia bancaria</label>
+                <br>
+                <hr>
+                <label for="name">Número de cuenta</label>
+                <br>
+                <input type="number" class="bank-input form-control" onkeyup="checkPago()" disabled required>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        <form class="valid-payment">
-        <input type="radio" name="pago-radio" id="credit-radio" onclick="checkPago()">
-        <label for="name">Tarjeta de crédito</label>
-        <hr>
-        <label for="name">Número de tarjeta:</label>
-        <br>
-        <input type="number" class="credit-input form-control" onkeyup="checkPago()" disabled required>
-        <br>
-        <label for="name">Código de seguridad</label>
-        <br>
-        <input type="text" class="credit-input form-control" onkeyup="checkPago()" disabled required>
-        <br>
-        <label for="name">Vencimiento (MM/AA)</label>
-        <br>
-        <input type="text" class="credit-input form-control" onkeyup="checkPago()" disabled required>
-        <br><hr>
-        <input type="radio" name="pago-radio" id="bank-radio" onclick="checkPago()">
-        <label for="name">Transferencia bancaria</label>
-        <br><hr>
-        <label for="name">Número de cuenta</label>
-        <br>
-        <input type="number" class="bank-input form-control" onkeyup="checkPago()" disabled required>
-      </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
       <button class="btn btn-primary p-1 w-100" id="buy-btn">Finalizar compra</button>
-    </div>
+
     </div>
     <div class="alert alert-success" id="alert-success" hidden>
       ¡Has comprado con éxito!

@@ -45,18 +45,19 @@ const showCategory = (array) => {
         let { id, image, name, cost, currency, description, soldCount} = item
         addContent = `
         <div class="list-group-item list-group-item-action" onclick="setProductID(`+ id + `)">
-            <div class="row">
-                <div class="col-3">
+            <div class="d-flex flex-column flex-sm-row">
+                <div class="col-5 col-sm-5 col-md-4 col-lg-3 align-self-center align-self-sm-auto">
                     <img src="` + image + `" alt="product image" class="img-thumbnail">
                 </div>
-                <div class="col">
+                <div class="col mt-2 mt-sm-0 ms-sm-2">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="mb-1">
                             <h4>`+ name + " - " + cost + " " + currency + `</h4> 
                             <p> `+ description + `</p> 
                         </div>
-                        <small class="text-muted">` + soldCount + ` vendidos</small> 
+                        <small class="d-none d-sm-block text-muted">` + soldCount + ` vendidos</small> 
                     </div>
+                    <small class="d-sm-none text-muted float-end">` + soldCount + ` vendidos</small> 
                 </div>
             </div>
         </div>

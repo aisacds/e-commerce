@@ -5,12 +5,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
-
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+
   <link href="css/styles.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -72,31 +70,35 @@
     <div id="container">
 
     </div>
-    <div id="container-img" class="d-flex justify-content-evenly">
+    <div id="container-img"
+      class="d-flex flex-wrap justify-content-center justify-content-md-evenly justify-content-lg-around">
 
     </div>
     <hr>
     <div id="container-cont-comments">
-      <h2 class="">Comentarios</h2>
+      <h2 class="text-center mb-4 text-sm-start  px-sm-2 mx-sm-4">Comentarios</h2>
       <div id="container-comments">
       </div>
     </div>
     <br>
-    <div id="addcomment-rel" class="d-flex">
+    <div id="addcomment-rel"
+      class=" d-flex align-items-center flex-column d-md-flex flex-md-row justify-content-md-between">
 
-      <div id="addcomment">
+      <div id="addcomment" class="mb-3 d-flex flex-column align-items-center d-md-flex align-items-md-start">
         <h3>Comentar</h3>
         <p>Tu opinion:</p>
-        <textarea name="" id="textarea-comment" cols="50" required></textarea>
-        <p>Tu puntuación:</p>
-        <select name="" id="selectcomment" onchange="" required>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <button id="btncomment">Enter</button>
+        <textarea name="" id="textarea-comment" cols="40" required class=""></textarea>
+        <div class="d-flex w-100 justify-content-between m-3">
+          <span class="p-2 bd-highlight">Tu puntuación:</span>
+          <select name="" id="selectcomment" onchange="" required class="p-2 bd-highlight">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button id="btncomment" class="btn btn-success ms-auto align-self-end">Enter</button>
+        </div>
       </div>
       <div id="rel-products" class="border">
         <h4 class="">Productos relacionados...</h4>
@@ -145,7 +147,11 @@
       <div></div>
     </div>
   </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
 </body>

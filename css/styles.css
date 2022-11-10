@@ -230,7 +230,7 @@ div.log-cont {
 div.comments {
   display: flex;
   flex-direction: column;
-  margin-left: 2rem;
+  
 }
 
 div.content-info {
@@ -238,9 +238,7 @@ div.content-info {
   
 }
 
-#addcomment {
-  padding-left: 2rem;
-}
+
 
 #btncomment {
   border: none;
@@ -257,10 +255,25 @@ div.content-info {
   padding-top: 3rem;
 }
 
-#rel-products {
-  padding: 20px;
-  margin-left: 200px;
-  width: 400px;
+@media (max-width: 768px) {
+  #rel-products {
+    padding: 20px;
+    width: 70vw;
+  }
+  
+}
+
+@media (min-width: 769px) {
+  #rel-products {
+    padding: 20px;
+    width: 30vw;
+  }
+  div.comments {
+    margin-left: 2rem;
+  }
+  #addcomment {
+    padding-left: 2rem;
+  }
 }
 
 #dropdownMenuButton {

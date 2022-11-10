@@ -45,16 +45,93 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
+            <button class="nav-link" type="button" id="dropdownMenuButton" aria-controls="dropmenu"
+              aria-expanded="false" onclick="menu()">
+            </button>
+            <div id="dropmenu" hidden style="position: absolute;">
+              <div class="d-flex flex-column">
+                <a class="nav-link" href="cart.html">Mi carrito</a>
+                <a class="nav-link" href="my-profile.html">Mi perfil</a>
+                <a class="nav-link" href="index.html" onclick="signOff()">Cerrar sesión</a>
+              </div>
+              <script>
+                const signOff = () => {
+                  localStorage.clear();
+                }
+                const btnEmail = document.getElementById("dropdownMenuButton");
+                let textEmail = localStorage.getItem("email");
+                const dropMenu = document.getElementById("dropmenu");
+                btnEmail.innerHTML += textEmail;
+                const menu = () => {
+                  let value = btnEmail.getAttribute("aria-expanded");
+
+                  if (value == "true") {
+                    btnEmail.setAttribute("aria-expanded", "false");
+                    dropMenu.setAttribute("hidden", "")
+                  }
+                  if (value == "false") {
+                    btnEmail.setAttribute("aria-expanded", "true");
+                    dropMenu.removeAttribute("hidden")
+                  }
+                }
+              </script>
+            </div>
           </li>
         </ul>
       </div>
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+    <div class="offset-2 col-8 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
+      <h1 class="mt-4">Perfil<img src="img/img_perfil.png" id="img-profile" style="width: 80px;" class="float-end border"></h1>
+      <br>
+      <hr>
+      <form class="row g-3 needs-validation" id="profile-form">
+        <div class="row-6 col-sm-6">
+          <label for="validationCustom01" class="form-label">Primer nombre*</label>
+          <input type="text" class="form-control" id="first-name" required>
+          <div class="invalid-feedback">
+            Campo obligatorio*
+          </div>
+        </div>
+        <div class="row-6 col-sm-6">
+          <label for="validationCustom02" class="form-label">Segundo nombre</label>
+          <input type="text" class="form-control" id="second-name">
+        </div>
+        <div class="row-6 col-sm-6">
+          <label for="validationCustomUsername" class="form-label">Primer apellido*</label>
+          <input type="text" class="form-control" id="first-surname" required>
+          <div class="invalid-feedback">
+            Campo obligatorio*
+          </div>
+        </div>
+        <div class="row-6 col-sm-6">
+          <label for="validationCustom03" class="form-label">Segundo apellido</label>
+          <input type="text" class="form-control" id="second-surname" formnovalidate>
+        </div>
+        <div class="row-6 col-sm-6">
+          <label for="validationCustom04" class="form-label">Email*</label>
+          <input type="text" class="form-control" id="email" required>
+          <div class="invalid-feedback">
+            Campo obligatorio*
+          </div>
+        </div>
+        <div class="row-6 col-sm-6">
+          <label for="validationCustom05" class="form-label">Imagen de perfil</label>
+          <input type="file" class="form-control" id="img" accept="image/png, image/jpg">
+          
+        </div>
+        <div class="row-6 col-sm-6">
+          <label for="validationCustom06" class="form-label">Teléfono de contacto</label>
+          <input type="number" class="form-control" id="phone">
+        </div>
+        <hr>
+        <button id="button" class="btn btn-primary mb-3" type="submit">Guardar cambios</button>
+      </form>
+    </div>
+    <div class="alert alert-success" id="alert-success"role="alert" hidden>
+      Cambios realizados con éxito!
+      <button type="button" class="btn btn-close float-end" id="btn-close"></button>
     </div>
   </main>
   <footer class="text-muted">

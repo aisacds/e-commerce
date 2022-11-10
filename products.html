@@ -55,22 +55,27 @@
       <h1>Productos</h1>
       <h5 id="h5-title">Veras aquí todos los productos de la categoría</h5>
     </div>
-    <input class="float-start"type="search" id="input-search" placeholder="Buscar">
-    <div class="cont-filters text-end" >
+    <input class="col-12 col-sm-4 float-sm-start col-lg-3 mt-1" type="search" id="input-search" placeholder="Buscar">
+    <div class="cont-filters text-center text-sm-end">
       
-      <span>Precio:</span>
-      <input type="number" placeholder="Mínimo" class="input-number-filt" id="input-min"> -
-      <input type="number" placeholder="Máximo" class="input-number-filt" id="input-max">
-      <button class="btn btn-light btn-block" id="btnFilter">Filtrar</button>
-      <button class="" id="btnClearFilter">Limpiar</button>
-
-      <span>Ordenar por</span>
-      <select id="filters" onchange="selection()">
-        <option value="" selected disabled>Seleccionar</option>
-        <option value="menor">Menor precio</option>
-        <option value="mayor">Mayor precio</option>
-        <option value="relevante">Mas relevante</option>
-      </select>
+      <div class="d-inline-block m-2 m-sm-1">
+        <span>Precio:</span>
+        <input type="number" placeholder="Mínimo" class="input-number-filt" id="input-min"> -
+        <input type="number" placeholder="Máximo" class="input-number-filt" id="input-max">
+      </div>
+      <div class=" d-inline-block m-2 m-sm-1">
+        <button class="btn btn-primary btn-sm btn-block" id="btnFilter">Filtrar</button>
+        <button class="btn btn-light btn-sm" id="btnClearFilter">Limpiar</button>
+      </div>
+      <div class=" d-inline-block m-2 m-sm-1">
+        <span>Ordenar por:</span>
+        <select id="filters" onchange="selection()" class="border">
+          <option value="" selected disabled>Seleccionar</option>
+          <option value="menor">Menor precio</option>
+          <option value="mayor">Mayor precio</option>
+          <option value="relevante">Mas relevante</option>
+        </select>
+      </div>
     </div>
     <div id="container" class="mt-3">
 
