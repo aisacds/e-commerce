@@ -18,9 +18,19 @@ async function getJson(link) {
                 item.currency = "USD";
                 item.cost = Math.round((item.cost / 41));
             }
+            if (item.unitCost){
+                item['cost'] = item['unitCost']
+                delete item.unitCost   
+            }
+            if (item.images) {
+                item.image = item.images[0]
+                delete item.images
+            }
+
         }
         showTable(products);
         showCosts()
+        localStorage.setItem("cart", JSON.stringify(products))
     }
 
     catch (e) {
@@ -28,7 +38,7 @@ async function getJson(link) {
     }
 }
 
-const showTable = (array) => {
+const showTable = (products) => {
     let addHTMLContent = "";
 
     addHTMLContent = `
@@ -41,39 +51,24 @@ const showTable = (array) => {
         </tr>
     `
     table.innerHTML += addHTMLContent;
+    if (products.length > 0) {
+    for (let item of  products) {
 
-    for (let item of array) {
-
-        if (item.unitCost) {
-
-            let { image, name, unitCost, currency, id } = item
+            let { image, name, cost, currency, id } = item
 
             addHTMLContent = `
     <br>
     <td><img src="${image}" style="width: 3rem;"></img></td>
     <td>${name}</td>
-    <td>${unitCost}` + " " + `${currency}</td>
+    <td>${cost}` + " " + `${currency}</td>
     <td><input type="number" value="1" style="width: 60px;" class="input-${id}" min="1" onchange="changeSubTotal(${id})"></td>
-    <td class="containerCost-${id}">` + unitCost + " " + currency + `</td>
+    <td class="containerCost-${id}">` + cost + " " + currency + `</td>
     <td><button type="button" class="btn btn-outline-danger" onclick="deleteItem(${id})"><i class="fa fa-trash"></i></button></td>
     `
             table.innerHTML += addHTMLContent;
-        } else {
-
-            let { images, name, cost, currency, id } = item
-
-            addHTMLContent = `
-        <br>
-        <td><img src="${images[0]}" style="width: 3rem;"></img></td>
-        <td>${name}</td>
-        <td>${cost}` + " " + `${currency}</td>
-        <td><input type="number" value="1" style="width: 60px;" class="input-${id}" min="1" onchange="changeSubTotal(${id})"></td>
-        <td class="containerCost-${id}">` + cost + " " + currency + `</td>
-        <td><button type="button" class="btn btn-outline-danger" onclick="deleteItem(${id})"><i class="fa fa-trash"></i></button></td>
-        `
-            table.innerHTML += addHTMLContent;
-        }
+       
     }
+}
 }
 
 // cambiar subtotal mediante la cantidad del producto
@@ -81,7 +76,6 @@ const changeSubTotal = (id) => {
     let inputValue = parseInt(document.querySelector(`.input-${id}`).value);
     let container = document.querySelector(`.containerCost-${id}`);
     const item = products.filter(item => item.id == id)
-    item[0].unitCost ? container.innerHTML = item[0].unitCost * inputValue + " " + item[0].currency :
         container.innerHTML = item[0].cost * inputValue + " " + item[0].currency;
     showCosts()
 }
@@ -98,15 +92,20 @@ function showCosts() {
 
     let array = [];
 
+    if (products.length > 0) {
+
     for (let item of products) {
         let input = document.querySelector(`.input-${item.id}`).value;
-        item.unitCost ? array.push(item.unitCost * input) : array.push(item.cost * input);
+         array.push(item.cost * input);
     }
     let totalCosts = array.reduce((previousValue, currentValue) => previousValue + currentValue)
     contSubtotal.innerHTML = totalCosts + " " + products[0].currency;
     contEnvio.innerHTML = Math.round(totalCosts * radio[0].defaultValue) + " " + products[0].currency;
     contTotal.innerHTML = totalCosts + Math.round((totalCosts * radio[0].defaultValue)) + " " + products[0].currency;
-
+} else {contSubtotal.innerText = "No hay productos";
+        contEnvio.innerText = "No hay productos";
+        contTotal.innerHTML = "";
+}
 }
 
 // validación forma de pago
@@ -166,20 +165,15 @@ btnAlert.addEventListener("click", function () {
 
 // eliminar producto del carrito (desafíate)
 const deleteItem = (id) => {
-    let cart = JSON.parse(localStorage.getItem("cart"))
-    let found = cart.findIndex(item => item.id === id);
-    cart.splice(found, 1);
-    products = cart
-    localStorage.setItem("cart", JSON.stringify(cart))
+    let found = products.findIndex(item => item.id === id);
+    products.splice(found, 1);
     table.innerHTML = "";
-    for (item of products) {
-        if (item.currency !== "USD") {
-            item.currency = "USD";
-            item.cost = Math.round((item.cost / 41));
-        }
-    }
     showTable(products);
     showCosts()
+    localStorage.setItem("cart", JSON.stringify(products))
+    if (products.length === 0) {
+        localStorage.removeItem("cart")
+    }
 }
 
 

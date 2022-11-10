@@ -36,7 +36,6 @@ btn.addEventListener("click", function (e) {
     const imgProfile = document.getElementById("img-profile");
     const form = document.getElementById("profile-form");
     
-
     if (form.checkValidity()) {
 
         form.classList.remove("was-validated");
@@ -62,12 +61,9 @@ btn.addEventListener("click", function (e) {
                 imgProfile.src = event.target.result;
                 let profile = JSON.parse(localStorage.getItem("profileDates"));
                 profile.img = event.target.result
-                console.log(profile)
                 localStorage.setItem("profileDates", JSON.stringify(profile))
             }
         }
-        
-
     } else {
         form.classList.add("was-validated")
     }
