@@ -1,6 +1,10 @@
 const btn = document.getElementById("button");
 const btnClose = document.getElementById("btn-close");
-const alert = document.getElementById("alert-success")
+const alert = document.getElementById("alert-success");
+
+if (!localStorage.getItem('email')) {
+    window.location.href = "login.html";
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     const firstName = document.getElementById("first-name");
@@ -11,7 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const imgProfile = document.getElementById("img-profile");
     const email = document.getElementById("email");
     let textEmail = localStorage.getItem("email");
-    email.value = textEmail
+
+    email.value = textEmail;
 
     let profile = JSON.parse(localStorage.getItem("profileDates"));
     if (profile) {
@@ -61,11 +66,11 @@ btn.addEventListener("click", function (e) {
                 imgProfile.src = event.target.result;
                 let profile = JSON.parse(localStorage.getItem("profileDates"));
                 profile.img = event.target.result
-                localStorage.setItem("profileDates", JSON.stringify(profile))
+                localStorage.setItem("profileDates", JSON.stringify(profile));
             }
         }
     } else {
-        form.classList.add("was-validated")
+        form.classList.add("was-validated");
     }
 })
 

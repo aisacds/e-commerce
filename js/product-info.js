@@ -24,7 +24,7 @@ getProduct(product).then(function (result) {
 
 })
 
-// add product in cart
+// añade un producto al carrito
 const setInCart = ()=> {
     getProduct(product).then(function (result) {
             cart = JSON.parse(localStorage.getItem("cart"));
@@ -34,6 +34,7 @@ const setInCart = ()=> {
     });
 }
 
+// muestra el producto
 const showProduct = (product) => {
     let addContent = "";
     let addImg = "";
@@ -73,6 +74,7 @@ getProduct(product).then(function (result) {
         showProduct(result);
 });
 
+// función que añade score
 const starsAdd = (score, element) => {
     let comment = document.getElementById(element);
     switch (score) {
@@ -114,6 +116,7 @@ const starsAdd = (score, element) => {
     }
 }
 
+// muestra los comentarios
 const addComments = (array) => {
     let comments = "";
     for (let item of array) {
@@ -131,24 +134,12 @@ const addComments = (array) => {
     }
 }
 
-const addComment = (time, user, description, rating) => {
-    let comment = "";
-    comment = `
-    <div class="comments border p-1">
-        <p class ="m-1" id="`+ user + `"><b>` + user + `</b>` + " - " + time + " - " + `</p>
-        <p class="m-1">`+ description + `</p>
-    </div>
-    `
-    contComments.insertAdjacentHTML("beforebegin", comment);
-    starsAdd(rating, user);
-}
-
 getProduct(productComments).then(function (result) {
         addComments(result);
         localStorage.setItem("comments", JSON.stringify(result));
 })
 
-// add new comment
+// añade un comentario a los comentarios guardados en localStorage
 document.getElementById("btncomment").addEventListener("click", function () {
 
     const select = parseInt(document.getElementById("selectcomment").value);
@@ -169,13 +160,13 @@ document.getElementById("btncomment").addEventListener("click", function () {
     addComments(array.reverse());
 })
 
-// for carousel items
+// redirige al producto seleccionado en el carrusel
 function changeProductID(id) {
     localStorage.setItem("productID", id);
     window.location = "product-info.html";
 }
 
-// carousel
+// añade el carrusel al documento
 document.addEventListener("DOMContentLoaded", function () {
 
     const carousel = document.querySelector(".carousel-inner");
@@ -204,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `
         carousel.innerHTML += addProduct;
     }
-    // obtengo el json y accedo a productos relacionados
+
     getProduct(product).then(function (result) {
             let products = result.relatedProducts;
             addRelProducts(products);

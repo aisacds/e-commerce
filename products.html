@@ -43,6 +43,21 @@
                 const signOff = () => {
                   localStorage.clear();
                 }
+                let textEmail = localStorage.getItem("email");
+                const btnEmail = document.getElementById("dropdownMenuButton");
+                const dropMenu = document.getElementById("dropmenu");
+                btnEmail.innerHTML += textEmail;
+                const menu = () => {
+                  let value = btnEmail.getAttribute("aria-expanded");
+                  if (value == "true") {
+                    btnEmail.setAttribute("aria-expanded", "false");
+                    dropMenu.setAttribute("hidden", "")
+                  }
+                  if (value == "false") {
+                    btnEmail.setAttribute("aria-expanded", "true");
+                    dropMenu.removeAttribute("hidden")
+                  }
+                }
               </script>
             </div>
           </li>
@@ -57,7 +72,7 @@
     </div>
     <input class="col-12 col-sm-4 float-sm-start col-lg-3 mt-1" type="search" id="input-search" placeholder="Buscar">
     <div class="cont-filters text-center text-sm-end">
-      
+
       <div class="d-inline-block m-2 m-sm-1">
         <span>Precio:</span>
         <input type="number" placeholder="Mínimo" class="input-number-filt" id="input-min"> -

@@ -7,24 +7,8 @@ const ascprice = "a-b";
 const relevant = "relevant";
 let minCount = undefined;
 let maxCount = undefined;
-let textEmail = localStorage.getItem("email");
-const btnEmail = document.getElementById("dropdownMenuButton");
-const dropMenu = document.getElementById("dropmenu");
 
-btnEmail.innerHTML += textEmail;
-
-const menu = ()=> {
-    let value = btnEmail.getAttribute("aria-expanded");
-    if(value == "true") {
-        btnEmail.setAttribute("aria-expanded", "false");
-        dropMenu.setAttribute("hidden", "")
-    }
-    if (value == "false") {
-        btnEmail.setAttribute("aria-expanded", "true");
-        dropMenu.removeAttribute("hidden")
-    }
-}
-
+// mostrar Nombre de la categoría
 function insertName(name) {
     let addContentHeader = "";
 
@@ -33,11 +17,13 @@ function insertName(name) {
     title.innerHTML += addContentHeader;
 }
 
+// función para entrar al producto seleccionado
 function setProductID(id) {
     localStorage.setItem("productID", id);
     window.location = "product-info.html";
 }
 
+// muestra la categoría
 const showCategory = (array) => {
     let addContent = "";
 
@@ -81,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     });
 });
 
+// función que ordena mediante método
 const sortProducts = (method, array) => {
     let result = [];
     if (method === ascprice) {
@@ -93,6 +80,7 @@ const sortProducts = (method, array) => {
     return result;
 }
 
+// función que muestra ya ordenado el array
 const sortPetition = (method) => {
     getJSONData(products).then(function (obj) {
         let products = obj.data.products;
@@ -101,6 +89,7 @@ const sortPetition = (method) => {
     })
 }
 
+// función ejecutada por el select
 const selection = () => {
     const select = document.getElementById("filters");
     container.innerHTML = "";
@@ -113,6 +102,7 @@ const selection = () => {
     }
 }
 
+// evento que filtra productos mediante el precio
 document.getElementById("btnFilter").addEventListener("click", () => {
     const inputMin = document.getElementById("input-min").value;
     const inputMax = document.getElementById("input-max").value;
@@ -142,6 +132,7 @@ document.getElementById("btnFilter").addEventListener("click", () => {
     })
 })
 
+// limpia todos los filtros
 document.getElementById("btnClearFilter").addEventListener("click", function () {
     inputMin = document.getElementById("input-min").value = "";
     inputMax = document.getElementById("input-max").value = "";
@@ -156,19 +147,16 @@ document.getElementById("btnClearFilter").addEventListener("click", function () 
     })
 })
 
+// filtra mediante valor de input (buscador)
 document.getElementById("input-search").addEventListener("input", (e) => {
-    // reinicio el contenido de div
     container.innerHTML = "";
-    // obtengo los productos a filtrar
+
     getJSONData(products).then((obj) => {
         if (obj.status === "ok") {
             let products = obj.data.products;
             let inputValue = e.target.value.toLowerCase();
-            // filtro mediante nombre
             let result = products.filter(item => item.name.toLowerCase().indexOf(inputValue) === 0);
-            // filtro por descripcion
             let result2 = products.filter(item => item.description.toLowerCase().indexOf(inputValue) === 0);
-            // si se cumpple uno de ambos, añado ya el objeto filtrado
             if (result) {
                 showCategory(result);
             }
